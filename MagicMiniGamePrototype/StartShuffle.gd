@@ -29,6 +29,3 @@ func continue_shuffle():
 
 func end_shuffle():
 	pass
-
-func get_correct_hat_index() -> int:
-	return correct_hat_index
