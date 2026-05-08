@@ -232,7 +232,7 @@ tracks/1/path = NodePath("..")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.9),
+"times": PackedFloat32Array(1),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [],
@@ -260,6 +260,7 @@ _data = {
 [node name="Hat" type="Area2D" node_paths=PackedStringArray("animation_player") groups=["hat"]]
 position = Vector2(330, 170)
 script = ExtResource("1_f4en3")
+shuffle_count = 5
 animation_player = NodePath("AnimationPlayer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -275,6 +276,7 @@ autoplay = "hat_idle"
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_f0jpr")
+position = Vector2(-660, 0)
 scale = Vector2(4, 4)
 texture = ExtResource("2_vlaef")
 hframes = 3

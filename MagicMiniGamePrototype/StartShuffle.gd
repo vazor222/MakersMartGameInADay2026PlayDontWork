@@ -1,5 +1,6 @@
 extends Area2D
 
+var correct_hat_index:int
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -14,8 +15,11 @@ func _process(delta):
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int):
 	if Input.is_action_just_pressed('mouse_click'):
 		print('start shuffle')
+		correct_hat_index = randi() % 2
 		get_tree().get_first_node_in_group('hat_right').drop()
-		# VZTODO set shuffle count
+		get_tree().get_first_node_in_group('hat_left').start_shuffle()
+		get_tree().get_first_node_in_group('hat_middle').start_shuffle()
+		get_tree().get_first_node_in_group('hat_right').start_shuffle()
 
 func continue_shuffle():
 	print('continue shuffle')
@@ -25,3 +29,6 @@ func continue_shuffle():
 
 func end_shuffle():
 	pass
+
+func get_correct_hat_index() -> int:
+	return correct_hat_index
