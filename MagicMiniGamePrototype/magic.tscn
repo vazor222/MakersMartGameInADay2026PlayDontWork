@@ -1,0 +1,101 @@
+[gd_scene load_steps=7 format=3 uid="uid://be4fjlcel2hky"]
+
+[ext_resource type="Texture2D" uid="uid://drdum85n634pk" path="res://yupaleap.jpg" id="1_h3yoc"]
+[ext_resource type="Script" path="res://HatClick.gd" id="1_jb3xw"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pa4nc"]
+size = Vector2(222, 300)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_28dqc"]
+size = Vector2(222, 300)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_arjue"]
+size = Vector2(222, 300)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f0jpr"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="SpreadsheetButton" type="Button" parent="CanvasLayer/Control"]
+offset_left = 607.0
+offset_top = 930.0
+offset_right = 725.0
+offset_bottom = 979.0
+text = "Spreadsheet"
+
+[node name="MagicGameButton" type="Button" parent="CanvasLayer/Control"]
+offset_left = 737.0
+offset_top = 930.0
+offset_right = 855.0
+offset_bottom = 979.0
+text = "Magic"
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 256
+theme_override_constants/margin_top = 256
+theme_override_constants/margin_right = 256
+theme_override_constants/margin_bottom = 64
+
+[node name="Panel" type="Panel" parent="CanvasLayer/Control/MarginContainer"]
+layout_mode = 2
+
+[node name="SpreadsheetPanel" type="Panel" parent="CanvasLayer/Control/MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MagicGamePanel" type="Panel" parent="CanvasLayer/Control/MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HatLeft" type="Area2D" parent="."]
+position = Vector2(-406, 176)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HatLeft"]
+shape = SubResource("RectangleShape2D_pa4nc")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="HatMiddle" type="Area2D" parent="."]
+position = Vector2(-467, -65)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HatMiddle"]
+position = Vector2(423, 174.5)
+shape = SubResource("RectangleShape2D_28dqc")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="HatRight" type="Area2D" parent="."]
+position = Vector2(294, 176)
+script = ExtResource("1_jb3xw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HatRight"]
+shape = SubResource("RectangleShape2D_arjue")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[node name="Sprite2D" type="Sprite2D" parent="HatRight"]
+material = SubResource("ShaderMaterial_f0jpr")
+texture = ExtResource("1_h3yoc")
+
+[node name="Camera2D" type="Camera2D" parent="."]
