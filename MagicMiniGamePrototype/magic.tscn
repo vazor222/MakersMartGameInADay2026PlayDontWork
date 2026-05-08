@@ -1,21 +1,75 @@
-[gd_scene load_steps=11 format=3 uid="uid://be4fjlcel2hky"]
+[gd_scene load_steps=18 format=3 uid="uid://be4fjlcel2hky"]
 
+[ext_resource type="Texture2D" uid="uid://cvxrgsx74ctp0" path="res://assets/boss-Sheet.png" id="1_00k01"]
+[ext_resource type="Script" path="res://magicOffice.gd" id="1_aoxwu"]
 [ext_resource type="Texture2D" uid="uid://dce6dovdotaw0" path="res://assets/monitor-Sheet.png" id="1_pmd75"]
 [ext_resource type="PackedScene" uid="uid://c7mljrxcuu5qu" path="res://hat.tscn" id="2_5tec4"]
 [ext_resource type="Texture2D" uid="uid://lwumfqxsaexd" path="res://assets/game-window-Sheet.png" id="2_m2g4c"]
 [ext_resource type="Texture2D" uid="uid://cx36wfs34s23q" path="res://assets/work-window-Sheet.png" id="3_4qwkx"]
 [ext_resource type="Script" path="res://StartShuffle.gd" id="4_66l7m"]
 [ext_resource type="Texture2D" uid="uid://bh831jt72wy3o" path="res://assets/game-icon-Sheet.png" id="5_i5iy2"]
+[ext_resource type="Script" path="res://WorkIconArea.gd" id="5_pog4f"]
 [ext_resource type="Texture2D" uid="uid://64k0vf3pcku3" path="res://assets/work-icon-Sheet.png" id="5_uxvt8"]
+[ext_resource type="Script" path="res://SheetAreaIcon.gd" id="7_sillh"]
 [ext_resource type="Texture2D" uid="uid://h0unjs3tpnps" path="res://assets/layout-template.png" id="8_s3f75"]
+
+[sub_resource type="Animation" id="Animation_kx2au"]
+resource_name = "walk"
+length = 60.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 12, 32.1, 43),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-2800, 2.08165e-12), Vector2(2800, 2.08165e-12), Vector2(2800, 2.08165e-12), Vector2(-2800, 2.08165e-12)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 12, 32.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_u46no"]
+_data = {
+"walk": SubResource("Animation_kx2au")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e5j3k"]
+size = Vector2(128, 128)
 
 [sub_resource type="LabelSettings" id="LabelSettings_hhxhj"]
 font_size = 64
+font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nchso"]
 size = Vector2(200, 80)
 
-[node name="Node2D" type="Node2D"]
+[node name="MagicOffice" type="Node2D" groups=["magic_office"]]
+script = ExtResource("1_aoxwu")
+
+[node name="BossSPrite" type="Sprite2D" parent="."]
+position = Vector2(2520, 2.08165e-12)
+scale = Vector2(4, 4)
+texture = ExtResource("1_00k01")
+flip_h = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BossSPrite"]
+libraries = {
+"": SubResource("AnimationLibrary_u46no")
+}
+autoplay = "walk"
 
 [node name="Node2D" type="Node2D" parent="."]
 
@@ -30,19 +84,32 @@ scale = Vector2(4, 4)
 texture = ExtResource("2_m2g4c")
 
 [node name="WorksheetWindow" type="Sprite2D" parent="Node2D"]
+visible = false
 position = Vector2(0, 25)
 scale = Vector2(4, 4)
 texture = ExtResource("3_4qwkx")
 
-[node name="WorksheetIcon" type="Sprite2D" parent="Node2D"]
+[node name="WorkIconArea" type="Area2D" parent="Node2D"]
 position = Vector2(64, 456)
+script = ExtResource("5_pog4f")
+
+[node name="WorksheetIcon" type="Sprite2D" parent="Node2D/WorkIconArea"]
 scale = Vector2(4, 4)
 texture = ExtResource("5_uxvt8")
 
-[node name="GameIcon" type="Sprite2D" parent="Node2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/WorkIconArea"]
+shape = SubResource("RectangleShape2D_e5j3k")
+
+[node name="SheetAreaIcon" type="Area2D" parent="Node2D"]
 position = Vector2(-64, 456)
+script = ExtResource("7_sillh")
+
+[node name="GameIcon" type="Sprite2D" parent="Node2D/SheetAreaIcon"]
 scale = Vector2(4, 4)
 texture = ExtResource("5_i5iy2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/SheetAreaIcon"]
+shape = SubResource("RectangleShape2D_e5j3k")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 visible = false
@@ -109,10 +176,10 @@ position = Vector2(0, -100)
 position = Vector2(-330, 170)
 
 [node name="HatMiddle" parent="HatGame" groups=["hat_middle"] instance=ExtResource("2_5tec4")]
-position = Vector2(0, 0)
 index = 1
 
 [node name="HatRight" parent="HatGame" groups=["hat_right"] instance=ExtResource("2_5tec4")]
+position = Vector2(330, 170)
 index = 2
 
 [node name="StartButtonNode2D" type="Node2D" parent="HatGame"]

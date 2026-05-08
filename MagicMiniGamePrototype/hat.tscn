@@ -253,12 +253,11 @@ _data = {
 "hat_shuffle_right_to_middle": SubResource("Animation_ueeft")
 }
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_f0jpr"]
-
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c11qq"]
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_f0jpr"]
+
 [node name="Hat" type="Area2D" node_paths=PackedStringArray("animation_player") groups=["hat"]]
-position = Vector2(330, 170)
 script = ExtResource("1_f4en3")
 shuffle_count = 5
 animation_player = NodePath("AnimationPlayer")
@@ -274,17 +273,16 @@ libraries = {
 }
 autoplay = "hat_idle"
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-material = SubResource("ShaderMaterial_f0jpr")
-position = Vector2(-660, 0)
-scale = Vector2(4, 4)
-texture = ExtResource("2_vlaef")
-hframes = 3
-frame = 2
-
 [node name="BunnySprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_c11qq")
 scale = Vector2(4, 4)
 texture = ExtResource("3_262wm")
 hframes = 5
+frame = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_f0jpr")
+scale = Vector2(4, 4)
+texture = ExtResource("2_vlaef")
+hframes = 3
 frame = 2
