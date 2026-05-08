@@ -2,7 +2,10 @@ extends Node2D
 @onready var game_window = $Node2D/GameWindow
 @onready var hat_game = $HatGame
 @onready var worksheet_window = $Node2D/WorksheetWindow
+@onready var score_label = $HatGame/ScoreLabel
 
+
+var score = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -24,3 +27,7 @@ func show_work():
 	
 	game_window.hide()
 	hat_game.hide()
+
+func add_score(amount):
+	score += amount
+	score_label.text = str(score)

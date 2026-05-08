@@ -27,6 +27,7 @@ func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int):
 		var correct = get_tree().get_first_node_in_group('start_shuffle').get_correct_hat_index()
 		if index == correct:
 			score += 1
+			get_tree().get_first_node_in_group('magic_office').add_score(1)
 
 func _on_drop_finished():
 	get_tree().get_first_node_in_group('start_shuffle').continue_shuffle()

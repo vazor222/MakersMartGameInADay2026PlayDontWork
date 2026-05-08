@@ -202,6 +202,15 @@ script = ExtResource("4_66l7m")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HatGame/StartButtonNode2D/Area2D"]
 shape = SubResource("RectangleShape2D_nchso")
 
+[node name="ScoreLabel" type="Label" parent="HatGame"]
+offset_left = 445.0
+offset_top = -128.0
+offset_right = 519.0
+offset_bottom = -40.0
+theme_override_font_sizes/font_size = 64
+text = "01"
+horizontal_alignment = 2
+
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.4, 0.4)
 
