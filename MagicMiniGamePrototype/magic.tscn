@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://be4fjlcel2hky"]
+[gd_scene load_steps=20 format=3 uid="uid://be4fjlcel2hky"]
 
 [ext_resource type="Texture2D" uid="uid://cvxrgsx74ctp0" path="res://assets/boss-Sheet.png" id="1_00k01"]
 [ext_resource type="Script" path="res://magicOffice.gd" id="1_aoxwu"]
@@ -56,16 +56,24 @@ font_color = Color(0, 0, 0, 1)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nchso"]
 size = Vector2(200, 80)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g27sj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7odgd"]
+bg_color = Color(0.690196, 0.188235, 0.360784, 1)
+
 [node name="MagicOffice" type="Node2D" groups=["magic_office"]]
 script = ExtResource("1_aoxwu")
 
-[node name="BossSPrite" type="Sprite2D" parent="."]
-position = Vector2(2520, 2.08165e-12)
+[node name="BossSprite" type="Sprite2D" parent="."]
+position = Vector2(2800, 2.08165e-12)
 scale = Vector2(4, 4)
 texture = ExtResource("1_00k01")
 flip_h = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="BossSPrite"]
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="BossSprite"]
+scale = Vector2(0.25, 0.25)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="BossSprite"]
 libraries = {
 "": SubResource("AnimationLibrary_u46no")
 }
@@ -219,3 +227,15 @@ visible = false
 position = Vector2(0, 200)
 scale = Vector2(4, 4)
 texture = ExtResource("8_s3f75")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = 750.0
+offset_top = -613.0
+offset_right = 1150.0
+offset_bottom = -581.0
+theme_override_styles/background = SubResource("StyleBoxFlat_g27sj")
+theme_override_styles/fill = SubResource("StyleBoxFlat_7odgd")
+value = 50.0
+
+[connection signal="screen_entered" from="BossSprite/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="BossSprite/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
