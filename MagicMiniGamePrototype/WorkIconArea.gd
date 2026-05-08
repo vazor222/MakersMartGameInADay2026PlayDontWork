@@ -14,4 +14,4 @@ func _process(delta):
 func _on_input_event(viewport: Node, event: InputEvent, shape_idx: int):
 	if Input.is_action_just_pressed('mouse_click'):
 		print('clicked! Work')
-		get_tree().get_first_node_in_group('magic_office').show_game()
+		get_tree().get_first_node_in_group('magic_office').show_work()
