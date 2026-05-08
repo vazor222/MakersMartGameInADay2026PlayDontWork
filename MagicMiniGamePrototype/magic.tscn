@@ -1,22 +1,205 @@
-[gd_scene load_steps=7 format=3 uid="uid://be4fjlcel2hky"]
+[gd_scene load_steps=23 format=3 uid="uid://be4fjlcel2hky"]
 
-[ext_resource type="Texture2D" uid="uid://drdum85n634pk" path="res://yupaleap.jpg" id="1_h3yoc"]
 [ext_resource type="Script" path="res://HatClick.gd" id="1_jb3xw"]
+[ext_resource type="Texture2D" uid="uid://d25dhhx42d10t" path="res://assets/hat-Sheet.png" id="2_dp7gn"]
+[ext_resource type="Texture2D" uid="uid://bcgb6pno4qfs" path="res://assets/rabbit-Sheet.png" id="3_0yqnv"]
+[ext_resource type="Script" path="res://StartShuffle.gd" id="4_66l7m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pa4nc"]
-size = Vector2(222, 300)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_28dqc"]
-size = Vector2(222, 300)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_arjue"]
-size = Vector2(222, 300)
+size = Vector2(270, 300)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f0jpr"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_c6iww"]
+load_path = "res://.godot/imported/hat-Sheet.png-81ba137b59c1526934b12a4ce2052886.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_28dqc"]
+size = Vector2(270, 300)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_utakv"]
+load_path = "res://.godot/imported/hat-Sheet.png-81ba137b59c1526934b12a4ce2052886.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_arjue"]
+size = Vector2(270, 300)
+
+[sub_resource type="Animation" id="Animation_hwien"]
+resource_name = "hat_lift_up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -400)]
+}
+
+[sub_resource type="Animation" id="Animation_tkjur"]
+resource_name = "hat_idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_eli3f"]
+resource_name = "hat_drop_down"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -400), Vector2(0, 0)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../../Node2D/Area2D")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(1),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"continue_shuffle"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_pej83"]
+resource_name = "hat_shuffle_left_to_middle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(330, -170)]
+}
+
+[sub_resource type="Animation" id="Animation_2fmgd"]
+resource_name = "hat_shuffle_left_to_right"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(660, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jv5cx"]
+resource_name = "hat_shuffle_middle_to_left"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-330, 170)]
+}
+
+[sub_resource type="Animation" id="Animation_ua0l7"]
+resource_name = "hat_shuffle_middle_to_right"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(330, 170)]
+}
+
+[sub_resource type="Animation" id="Animation_f55xe"]
+resource_name = "hat_shuffle_right_to_left"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-660, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ueeft"]
+resource_name = "hat_shuffle_right_to_middle"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-330, -170)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_m037b"]
+_data = {
+"hat_drop_down": SubResource("Animation_eli3f"),
+"hat_idle": SubResource("Animation_tkjur"),
+"hat_lift_up": SubResource("Animation_hwien"),
+"hat_shuffle_left_to_middle": SubResource("Animation_pej83"),
+"hat_shuffle_left_to_right": SubResource("Animation_2fmgd"),
+"hat_shuffle_middle_to_left": SubResource("Animation_jv5cx"),
+"hat_shuffle_middle_to_right": SubResource("Animation_ua0l7"),
+"hat_shuffle_right_to_left": SubResource("Animation_f55xe"),
+"hat_shuffle_right_to_middle": SubResource("Animation_ueeft")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_hhxhj"]
+font_size = 64
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nchso"]
+size = Vector2(200, 80)
 
 [node name="Node2D" type="Node2D"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -71,31 +254,95 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="HatLeft" type="Area2D" parent="."]
-position = Vector2(-406, 176)
+[node name="HatLeft" type="Area2D" parent="." node_paths=PackedStringArray("animation_player") groups=["hat", "hat_left"]]
+position = Vector2(-330, 170)
+script = ExtResource("1_jb3xw")
+animation_player = NodePath("AnimationPlayer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HatLeft"]
 shape = SubResource("RectangleShape2D_pa4nc")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
-[node name="HatMiddle" type="Area2D" parent="."]
-position = Vector2(-467, -65)
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HatLeft"]
+root_node = NodePath("../Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="HatLeft"]
+material = SubResource("ShaderMaterial_f0jpr")
+scale = Vector2(4, 4)
+texture = SubResource("CompressedTexture2D_c6iww")
+hframes = 3
+frame = 2
+
+[node name="HatMiddle" type="Area2D" parent="." node_paths=PackedStringArray("animation_player") groups=["hat", "hat_middle"]]
+script = ExtResource("1_jb3xw")
+index = 1
+animation_player = NodePath("AnimationPlayer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HatMiddle"]
-position = Vector2(423, 174.5)
 shape = SubResource("RectangleShape2D_28dqc")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
-[node name="HatRight" type="Area2D" parent="."]
-position = Vector2(294, 176)
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HatMiddle"]
+root_node = NodePath("../Sprite2D")
+
+[node name="Sprite2D" type="Sprite2D" parent="HatMiddle"]
+material = SubResource("ShaderMaterial_f0jpr")
+scale = Vector2(4, 4)
+texture = SubResource("CompressedTexture2D_utakv")
+hframes = 3
+frame = 2
+
+[node name="HatRight" type="Area2D" parent="." node_paths=PackedStringArray("animation_player") groups=["hat", "hat_right"]]
+position = Vector2(330, 170)
 script = ExtResource("1_jb3xw")
+index = 2
+animation_player = NodePath("AnimationPlayer")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HatRight"]
 shape = SubResource("RectangleShape2D_arjue")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="HatRight"]
+root_node = NodePath("../Sprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_m037b")
+}
+autoplay = "hat_idle"
+
 [node name="Sprite2D" type="Sprite2D" parent="HatRight"]
 material = SubResource("ShaderMaterial_f0jpr")
-texture = ExtResource("1_h3yoc")
+scale = Vector2(4, 4)
+texture = ExtResource("2_dp7gn")
+hframes = 3
+frame = 2
+
+[node name="BunnySprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_f0jpr")
+position = Vector2(330, 170)
+scale = Vector2(4, 4)
+texture = ExtResource("3_0yqnv")
+hframes = 5
+frame = 2
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+
+[node name="Node2D" type="Node2D" parent="."]
+position = Vector2(0, 400)
+
+[node name="Label" type="Label" parent="Node2D"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Start"
+label_settings = SubResource("LabelSettings_hhxhj")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Area2D" type="Area2D" parent="Node2D"]
+script = ExtResource("4_66l7m")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Node2D/Area2D"]
+shape = SubResource("RectangleShape2D_nchso")
