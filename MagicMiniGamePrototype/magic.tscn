@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://be4fjlcel2hky"]
+[gd_scene load_steps=29 format=3 uid="uid://be4fjlcel2hky"]
 
 [ext_resource type="Texture2D" uid="uid://cvxrgsx74ctp0" path="res://assets/boss-Sheet.png" id="1_00k01"]
 [ext_resource type="Script" path="res://magicOffice.gd" id="1_aoxwu"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://c7mljrxcuu5qu" path="res://hat.tscn" id="2_5tec4"]
 [ext_resource type="Texture2D" uid="uid://lwumfqxsaexd" path="res://assets/game-window-Sheet.png" id="2_m2g4c"]
 [ext_resource type="Texture2D" uid="uid://cx36wfs34s23q" path="res://assets/work-window-Sheet.png" id="3_4qwkx"]
+[ext_resource type="Script" path="res://Boss.gd" id="3_63ccr"]
 [ext_resource type="Script" path="res://StartShuffle.gd" id="4_66l7m"]
 [ext_resource type="Texture2D" uid="uid://bh831jt72wy3o" path="res://assets/game-icon-Sheet.png" id="5_i5iy2"]
 [ext_resource type="Script" path="res://WorkIconArea.gd" id="5_pog4f"]
@@ -17,10 +18,10 @@
 [ext_resource type="PackedScene" uid="uid://by44ikb2eqnlc" path="res://points_panel.tscn" id="11_o7cy3"]
 [ext_resource type="Texture2D" uid="uid://ct6atgdr7gca0" path="res://assets/Screenshot 2026-05-09 at 7.57.53 AM.png" id="15_m015p"]
 
-[sub_resource type="Animation" id="Animation_kx2au"]
-resource_name = "walk"
-length = 60.0
-loop_mode = 1
+[sub_resource type="Animation" id="Animation_1y2bg"]
+resource_name = "from_left_walk_long"
+length = 30.0
+step = 1.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -28,10 +29,10 @@ tracks/0/path = NodePath(".:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 12, 32.1, 43),
+"times": PackedFloat32Array(0, 5, 20, 30),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(-2800, 2.08165e-12), Vector2(2800, 2.08165e-12), Vector2(2800, 2.08165e-12), Vector2(-2800, 2.08165e-12)]
+"values": [Vector2(-2000, 2.08165e-12), Vector2(-2000, 2.08165e-12), Vector2(2000, 2.08165e-12), Vector2(2000, 2.08165e-12)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -40,15 +41,135 @@ tracks/1/path = NodePath(".:flip_h")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 12, 32.1),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false, true, true]
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_4ii0x"]
+resource_name = "from_left_walk_quick"
+length = 15.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5, 15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(-2000, 2.08165e-12), Vector2(2000, 2.08165e-12), Vector2(2000, 2.08165e-12)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_rmwc7"]
+resource_name = "from_right_walk_long"
+length = 30.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5, 20, 30),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(2000, 2.08165e-12), Vector2(2000, 2.08165e-12), Vector2(-2000, 2.08165e-12), Vector2(-2000, 2.08165e-12)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_306n5"]
+resource_name = "from_right_walk_quick"
+length = 15.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5, 15),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(2000, 2.08165e-12), Vector2(-2000, 2.08165e-12), Vector2(-2000, 2.08165e-12)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_rmvs6"]
+resource_name = "from_right_walk_back"
+length = 20.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 4, 9, 15, 20),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(2000, 2.08165e-12), Vector2(200, 2.08165e-12), Vector2(200, 2.08165e-12), Vector2(600, 2.08165e-12), Vector2(2000, 2.08165e-12), Vector2(2000, 2.08165e-12)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u46no"]
 _data = {
-"walk": SubResource("Animation_kx2au")
+"from_left_walk_long": SubResource("Animation_1y2bg"),
+"from_left_walk_quick": SubResource("Animation_4ii0x"),
+"from_right_walk_back": SubResource("Animation_rmvs6"),
+"from_right_walk_long": SubResource("Animation_rmwc7"),
+"from_right_walk_quick": SubResource("Animation_306n5")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e5j3k"]
@@ -72,10 +193,10 @@ bg_color = Color(0.690196, 0.188235, 0.360784, 1)
 script = ExtResource("1_aoxwu")
 
 [node name="BossSprite" type="Sprite2D" parent="."]
-position = Vector2(2800, 2.08165e-12)
+position = Vector2(2000, 2.08165e-12)
 scale = Vector2(4, 4)
 texture = ExtResource("1_00k01")
-flip_h = true
+script = ExtResource("3_63ccr")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="BossSprite"]
 rect = Rect2(-64, -64, 128, 128)
@@ -84,7 +205,7 @@ rect = Rect2(-64, -64, 128, 128)
 libraries = {
 "": SubResource("AnimationLibrary_u46no")
 }
-autoplay = "walk"
+autoplay = "from_left_walk_long"
 
 [node name="Node2D" type="Node2D" parent="."]
 
@@ -337,5 +458,6 @@ texture = ExtResource("15_m015p")
 
 [connection signal="screen_entered" from="BossSprite/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="BossSprite/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="animation_finished" from="BossSprite/AnimationPlayer" to="BossSprite" method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="RivalTimerA" to="." method="_on_rival_timer_a_timeout"]
 [connection signal="timeout" from="RivalTimerB" to="." method="_on_rival_timer_b_timeout"]
