@@ -8,10 +8,17 @@ extends Node2D
 @onready var rival_points_panel_a = %RivalPointsPanelA
 @onready var rival_points_panel_b = %RivalPointsPanelB
 @onready var points_panels_v_box = %PointsPanelsVBox
+@onready var rival_timer_a = %RivalTimerA
+@onready var rival_timer_b = %RivalTimerB
+@onready var boss = %Boss
 
 var suspicion = 0
 var boss_on_screen = false
 var playing_game = true
+var game_over = false
+
+var rival_times_a = [5,6,7,8]
+var rival_times_b = [6,7,8,10]
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,10 +30,12 @@ func _ready():
 func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		get_tree().reload_current_scene()
+	if game_over:
+		return
 	if boss_on_screen and playing_game:
 		add_suspicion(delta * 30)
 	else:
-		add_suspicion(-delta * 5)
+		add_suspicion(-delta * 1)
 	pass
 
 func show_game():
@@ -51,6 +60,8 @@ func add_suspicion(amount):
 		suspicion = progress_bar.max_value
 		print("you LOOSE")
 		lose_label.show()
+		boss.stop()
+		game_over = true
 	progress_bar.value = suspicion
 
 func add_score(amount):
@@ -78,6 +89,7 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 	boss_on_screen = false
 	print("off screen")
 	pass # Replace with function body.
+
 func clicked_hat_index(index):
 	var highestMoveCount:int = 0
 	var leftMoveCount = get_tree().get_first_node_in_group('hat_left').get_move_count()
@@ -99,13 +111,22 @@ func clicked_hat_index(index):
 	pass
 
 
+func get_rival_wait_time(arr):
+	var new_time = arr[randi() % arr.size()]
+	print('NEW TIME:', new_time)
+	return new_time
+
 func _on_rival_timer_a_timeout():
 	print('TIMEOUTA')
 	add_rival_score(rival_points_panel_a, 1)
+	rival_timer_a.wait_time = get_rival_wait_time(rival_times_a)
+	rival_timer_a.start()
 	pass # Replace with function body.
 
 
 func _on_rival_timer_b_timeout():
 	print('TIMEOUTB')
 	add_rival_score(rival_points_panel_b, 1)
+	rival_timer_b.wait_time = get_rival_wait_time(rival_times_b)
+	rival_timer_b.start()
 	pass # Replace with function body.

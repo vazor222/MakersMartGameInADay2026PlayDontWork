@@ -76,6 +76,35 @@ tracks/1/keys = {
 "values": [false]
 }
 
+[sub_resource type="Animation" id="Animation_rmvs6"]
+resource_name = "from_right_walk_back"
+length = 20.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 4, 9, 15, 20),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(2000, 2.08165e-12), Vector2(200, 2.08165e-12), Vector2(200, 2.08165e-12), Vector2(600, 2.08165e-12), Vector2(2000, 2.08165e-12), Vector2(2000, 2.08165e-12)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
 [sub_resource type="Animation" id="Animation_rmwc7"]
 resource_name = "from_right_walk_long"
 length = 30.0
@@ -134,35 +163,6 @@ tracks/1/keys = {
 "values": [true]
 }
 
-[sub_resource type="Animation" id="Animation_rmvs6"]
-resource_name = "from_right_walk_back"
-length = 20.0
-step = 1.0
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1, 4, 9, 15, 20),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 0,
-"values": [Vector2(2000, 2.08165e-12), Vector2(200, 2.08165e-12), Vector2(200, 2.08165e-12), Vector2(600, 2.08165e-12), Vector2(2000, 2.08165e-12), Vector2(2000, 2.08165e-12)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:flip_h")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u46no"]
 _data = {
 "from_left_walk_long": SubResource("Animation_1y2bg"),
@@ -192,16 +192,18 @@ bg_color = Color(0.690196, 0.188235, 0.360784, 1)
 [node name="MagicOffice" type="Node2D" groups=["magic_office"]]
 script = ExtResource("1_aoxwu")
 
-[node name="BossSprite" type="Sprite2D" parent="."]
-position = Vector2(2000, 2.08165e-12)
+[node name="Boss" type="Sprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(-2000, 2.08165e-12)
 scale = Vector2(4, 4)
 texture = ExtResource("1_00k01")
 script = ExtResource("3_63ccr")
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="BossSprite"]
-rect = Rect2(-64, -64, 128, 128)
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="Boss"]
+position = Vector2(2.08165e-12, -88)
+rect = Rect2(-32, -32, 64, 64)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="BossSprite"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Boss"]
 libraries = {
 "": SubResource("AnimationLibrary_u46no")
 }
@@ -444,11 +446,15 @@ text = "YOU'RE FIRED!!"
 horizontal_alignment = 1
 
 [node name="RivalTimerA" type="Timer" parent="."]
+unique_name_in_owner = true
 wait_time = 6.0
+one_shot = true
 autostart = true
 
 [node name="RivalTimerB" type="Timer" parent="."]
+unique_name_in_owner = true
 wait_time = 7.0
+one_shot = true
 autostart = true
 
 [node name="REF" type="Sprite2D" parent="."]
@@ -456,8 +462,8 @@ visible = false
 self_modulate = Color(1, 1, 1, 0.352941)
 texture = ExtResource("15_m015p")
 
-[connection signal="screen_entered" from="BossSprite/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
-[connection signal="screen_exited" from="BossSprite/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
-[connection signal="animation_finished" from="BossSprite/AnimationPlayer" to="BossSprite" method="_on_animation_player_animation_finished"]
+[connection signal="screen_entered" from="Boss/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
+[connection signal="screen_exited" from="Boss/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="animation_finished" from="Boss/AnimationPlayer" to="Boss" method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="RivalTimerA" to="." method="_on_rival_timer_a_timeout"]
 [connection signal="timeout" from="RivalTimerB" to="." method="_on_rival_timer_b_timeout"]
