@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://be4fjlcel2hky"]
+[gd_scene load_steps=31 format=3 uid="uid://be4fjlcel2hky"]
 
 [ext_resource type="Texture2D" uid="uid://cvxrgsx74ctp0" path="res://assets/boss-Sheet.png" id="1_00k01"]
 [ext_resource type="Script" path="res://magicOffice.gd" id="1_aoxwu"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bh831jt72wy3o" path="res://assets/game-icon-Sheet.png" id="5_i5iy2"]
 [ext_resource type="Script" path="res://WorkIconArea.gd" id="5_pog4f"]
 [ext_resource type="Texture2D" uid="uid://64k0vf3pcku3" path="res://assets/work-icon-Sheet.png" id="5_uxvt8"]
+[ext_resource type="PackedScene" uid="uid://d1qd53bedf5od" path="res://cell_area_2d.tscn" id="6_bxpkj"]
 [ext_resource type="Script" path="res://SheetAreaIcon.gd" id="7_sillh"]
 [ext_resource type="Texture2D" uid="uid://h0unjs3tpnps" path="res://assets/layout-template.png" id="8_s3f75"]
 [ext_resource type="Texture2D" uid="uid://ci5olx838p6fb" path="res://assets/window-size-Sheet.png" id="10_asmcf"]
@@ -33,6 +34,35 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [Vector2(-2000, 2.08165e-12), Vector2(-2000, 2.08165e-12), Vector2(2000, 2.08165e-12), Vector2(2000, 2.08165e-12)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:flip_h")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_seuik"]
+resource_name = "from_left_walk_long_pause"
+length = 30.0
+step = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5, 10, 14, 20, 30),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(-2000, 2.08165e-12), Vector2(-2000, 2.08165e-12), Vector2(-133.333, 2.08165e-12), Vector2(-133.333, 2.08165e-12), Vector2(2000, 2.08165e-12), Vector2(2000, 2.08165e-12)]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
@@ -166,6 +196,7 @@ tracks/1/keys = {
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_u46no"]
 _data = {
 "from_left_walk_long": SubResource("Animation_1y2bg"),
+"from_left_walk_long_pause": SubResource("Animation_seuik"),
 "from_left_walk_quick": SubResource("Animation_4ii0x"),
 "from_right_walk_back": SubResource("Animation_rmvs6"),
 "from_right_walk_long": SubResource("Animation_rmwc7"),
@@ -184,7 +215,7 @@ font_color = Color(0.152941, 0.152941, 0.211765, 1)
 size = Vector2(200, 80)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g27sj"]
-bg_color = Color(0.376471, 0.376471, 0.439216, 1)
+bg_color = Color(0.152941, 0.152941, 0.211765, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7odgd"]
 bg_color = Color(0.690196, 0.188235, 0.360784, 1)
@@ -194,7 +225,7 @@ script = ExtResource("1_aoxwu")
 
 [node name="Boss" type="Sprite2D" parent="."]
 unique_name_in_owner = true
-position = Vector2(-2000, 2.08165e-12)
+position = Vector2(2000, 2.08165e-12)
 scale = Vector2(4, 4)
 texture = ExtResource("1_00k01")
 script = ExtResource("3_63ccr")
@@ -222,10 +253,304 @@ scale = Vector2(4, 4)
 texture = ExtResource("2_m2g4c")
 
 [node name="WorksheetWindow" type="Sprite2D" parent="Node2D"]
-visible = false
 position = Vector2(0, 25)
 scale = Vector2(4, 4)
 texture = ExtResource("3_4qwkx")
+
+[node name="CellArea2D" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-96, -28)
+text = "Number"
+
+[node name="CellArea2D2" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-64, -28)
+text = "Seller"
+
+[node name="CellArea2D3" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-32, -28)
+text = "Item"
+
+[node name="CellArea2D4" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(0, -28)
+text = "Price"
+
+[node name="CellArea2D5" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(32, -28)
+text = "Priority"
+
+[node name="CellArea2D6" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(64, -28)
+text = "Status"
+
+[node name="CellArea2D7" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-96, -20)
+text = "1"
+
+[node name="CellArea2D8" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-64, -20)
+text = "Josh"
+
+[node name="CellArea2D9" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-32, -20)
+text = "Laptop"
+
+[node name="CellArea2D10" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(0, -20)
+text = "$2000"
+
+[node name="CellArea2D11" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(32, -20)
+text = "High"
+
+[node name="CellArea2D12" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(64, -20)
+text = "active"
+
+[node name="CellArea2D13" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-96, -12)
+text = "2"
+
+[node name="CellArea2D14" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-64, -12)
+text = "Dom"
+
+[node name="CellArea2D15" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-32, -12)
+text = "Canvas"
+
+[node name="CellArea2D16" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(0, -12)
+text = "$40"
+
+[node name="CellArea2D17" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(32, -12)
+text = "Med "
+
+[node name="CellArea2D18" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(64, -12)
+text = "active"
+
+[node name="CellArea2D19" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-96, -4)
+text = "3"
+
+[node name="CellArea2D20" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-64, -4)
+text = "Jack"
+
+[node name="CellArea2D21" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-32, -4)
+text = "Car"
+
+[node name="CellArea2D22" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(0, -4)
+text = "$15000"
+
+[node name="CellArea2D23" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(32, -4)
+text = "High"
+start_shown = false
+
+[node name="CellArea2D24" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(64, -4)
+text = "done"
+start_shown = false
+
+[node name="CellArea2D25" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-96, 4)
+text = "4"
+
+[node name="CellArea2D26" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-64, 4)
+text = "Jack"
+
+[node name="CellArea2D27" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-32, 4)
+text = "Horse"
+start_shown = false
+
+[node name="CellArea2D28" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(0, 4)
+text = "$8050"
+start_shown = false
+
+[node name="CellArea2D29" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(32, 4)
+text = "High"
+start_shown = false
+
+[node name="CellArea2D30" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(64, 4)
+text = "dono"
+start_shown = false
+
+[node name="CellArea2D31" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-96, 12)
+text = "5"
+
+[node name="CellArea2D32" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-64, 12)
+text = "Sarah"
+
+[node name="CellArea2D33" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-32, 12)
+text = "Couch"
+
+[node name="CellArea2D34" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(0, 12)
+text = "$2000"
+
+[node name="CellArea2D35" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(32, 12)
+text = "Med"
+start_shown = false
+
+[node name="CellArea2D36" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(64, 12)
+text = "active"
+start_shown = false
+
+[node name="CellArea2D37" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-96, 20)
+text = "6"
+
+[node name="CellArea2D38" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-64, 20)
+text = "Kelly"
+
+[node name="CellArea2D39" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-32, 20)
+text = "Desk"
+start_shown = false
+
+[node name="CellArea2D40" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(0, 20)
+text = "$????"
+start_shown = false
+
+[node name="CellArea2D41" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(32, 20)
+text = "13552"
+start_shown = false
+
+[node name="CellArea2D42" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(64, 20)
+text = ":("
+start_shown = false
+
+[node name="CellArea2D43" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-96, 28)
+text = "7"
+
+[node name="CellArea2D44" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-64, 28)
+text = "Blah"
+
+[node name="CellArea2D45" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-32, 28)
+text = "jlk;"
+start_shown = false
+
+[node name="CellArea2D46" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(0, 28)
+text = "Debit"
+start_shown = false
+
+[node name="CellArea2D47" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(32, 28)
+text = "asdf"
+
+[node name="CellArea2D48" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(64, 28)
+text = "BORING"
+start_shown = false
+
+[node name="CellArea2D49" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-96, 36)
+text = "8"
+
+[node name="CellArea2D50" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-64, 36)
+text = "Blah"
+start_shown = false
+
+[node name="CellArea2D51" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-32, 36)
+text = "jkl;"
+start_shown = false
+
+[node name="CellArea2D52" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(0, 36)
+text = "Blahhh"
+start_shown = false
+
+[node name="CellArea2D53" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(32, 36)
+text = "umm"
+start_shown = false
+
+[node name="CellArea2D54" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(64, 36)
+text = "00000"
+start_shown = false
+
+[node name="CellArea2D55" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-96, 44)
+text = "9"
+
+[node name="CellArea2D56" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-64, 44)
+text = "asdf"
+start_shown = false
+
+[node name="CellArea2D57" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-32, 44)
+text = "@!$%"
+start_shown = false
+
+[node name="CellArea2D58" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(0, 44)
+text = "asdf"
+start_shown = false
+
+[node name="CellArea2D59" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(32, 44)
+text = "asdf"
+start_shown = false
+
+[node name="CellArea2D60" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(64, 44)
+text = "Debit"
+start_shown = false
+
+[node name="CellArea2D61" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-96, 52)
+text = "10"
+start_shown = false
+
+[node name="CellArea2D62" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-64, 52)
+text = "asdf"
+start_shown = false
+
+[node name="CellArea2D63" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(-32, 52)
+text = "stupid"
+start_shown = false
+
+[node name="CellArea2D64" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(0, 52)
+text = "MAGIC"
+start_shown = false
+
+[node name="CellArea2D65" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(32, 52)
+text = "GAMES!!"
+start_shown = false
+
+[node name="CellArea2D66" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
+position = Vector2(64, 52)
+text = "NO WORK"
+start_shown = false
 
 [node name="WorkIconArea" type="Area2D" parent="Node2D"]
 position = Vector2(64, 360)
@@ -311,6 +636,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="HatGame" type="Sprite2D" parent="."]
+visible = false
 clip_children = 1
 position = Vector2(2.08165e-12, 40)
 texture = ExtResource("10_asmcf")

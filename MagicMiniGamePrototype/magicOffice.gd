@@ -23,6 +23,7 @@ var rival_times_b = [6,7,8,10]
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	sort_scores()
+	show_game()
 	pass # Replace with function body.
 
 
@@ -51,8 +52,11 @@ func show_work():
 	
 	game_window.hide()
 	hat_game.hide()
+	get_tree().call_group('cell', 'deactivate')
 
 func add_suspicion(amount):
+	if game_over:
+		return
 	suspicion += amount
 	if suspicion < 0:
 		suspicion = 0
