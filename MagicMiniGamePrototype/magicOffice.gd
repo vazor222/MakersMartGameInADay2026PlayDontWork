@@ -20,6 +20,10 @@ var game_over = false
 var rival_times_a = [5,6,7,8]
 var rival_times_b = [6,7,8,10]
 
+var dark = preload("res://assets/work-window-dark-Sheet.png")
+	
+var light = preload("res://assets/work-window-Sheet.png")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	sort_scores()
@@ -114,6 +118,14 @@ func clicked_hat_index(index):
 		add_score(1)
 	pass
 
+
+func work_dark():
+	%WorksheetWindow.texture = dark
+	get_tree().call_group('cell', 'light_text')
+	
+func work_light():
+	%WorksheetWindow.texture = light
+	get_tree().call_group('cell', 'dark_text')
 
 func get_rival_wait_time(arr):
 	var new_time = arr[randi() % arr.size()]

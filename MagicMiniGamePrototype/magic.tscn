@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://be4fjlcel2hky"]
+[gd_scene load_steps=33 format=3 uid="uid://be4fjlcel2hky"]
 
 [ext_resource type="Texture2D" uid="uid://cvxrgsx74ctp0" path="res://assets/boss-Sheet.png" id="1_00k01"]
 [ext_resource type="Script" path="res://magicOffice.gd" id="1_aoxwu"]
@@ -13,7 +13,9 @@
 [ext_resource type="Texture2D" uid="uid://64k0vf3pcku3" path="res://assets/work-icon-Sheet.png" id="5_uxvt8"]
 [ext_resource type="PackedScene" uid="uid://d1qd53bedf5od" path="res://cell_area_2d.tscn" id="6_bxpkj"]
 [ext_resource type="Script" path="res://SheetAreaIcon.gd" id="7_sillh"]
+[ext_resource type="PackedScene" uid="uid://bpge72163q6or" path="res://clear_area_2d.tscn" id="8_gh7iu"]
 [ext_resource type="Texture2D" uid="uid://h0unjs3tpnps" path="res://assets/layout-template.png" id="8_s3f75"]
+[ext_resource type="PackedScene" uid="uid://dnkb1vsux8dg5" path="res://dark_mode_area_2d.tscn" id="9_j810f"]
 [ext_resource type="Texture2D" uid="uid://ci5olx838p6fb" path="res://assets/window-size-Sheet.png" id="10_asmcf"]
 [ext_resource type="FontFile" uid="uid://bo5a45h3ba20e" path="res://assets/BoldPixels.ttf" id="11_ahjlb"]
 [ext_resource type="PackedScene" uid="uid://by44ikb2eqnlc" path="res://points_panel.tscn" id="11_o7cy3"]
@@ -253,6 +255,7 @@ scale = Vector2(4, 4)
 texture = ExtResource("2_m2g4c")
 
 [node name="WorksheetWindow" type="Sprite2D" parent="Node2D"]
+unique_name_in_owner = true
 position = Vector2(0, 25)
 scale = Vector2(4, 4)
 texture = ExtResource("3_4qwkx")
@@ -551,6 +554,11 @@ start_shown = false
 position = Vector2(64, 52)
 text = "NO WORK"
 start_shown = false
+
+[node name="ClearArea2D" parent="Node2D/WorksheetWindow" instance=ExtResource("8_gh7iu")]
+
+[node name="DarkModeArea2D" parent="Node2D/WorksheetWindow" instance=ExtResource("9_j810f")]
+position = Vector2(114.5, -5)
 
 [node name="WorkIconArea" type="Area2D" parent="Node2D"]
 position = Vector2(64, 360)

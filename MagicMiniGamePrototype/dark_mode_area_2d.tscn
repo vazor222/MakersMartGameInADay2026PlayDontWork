@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://dnkb1vsux8dg5"]
+
+[ext_resource type="Script" path="res://dark_mode_area_2d.gd" id="1_t0k8v"]
+[ext_resource type="Texture2D" uid="uid://dqb6qrq12tn88" path="res://assets/button-toggle-Sheet.png" id="2_v0nnl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t12x4"]
+size = Vector2(15, 8)
+
+[node name="DarkModeArea2D" type="Area2D"]
+position = Vector2(109, -25)
+script = ExtResource("1_t0k8v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_t12x4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_v0nnl")
+hframes = 2
+frame = 1

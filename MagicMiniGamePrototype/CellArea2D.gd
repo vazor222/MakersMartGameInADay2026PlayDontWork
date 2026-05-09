@@ -22,6 +22,14 @@ func _ready() -> void:
 	label.text = text
 	label.visible = start_shown
 
+func clear():
+	label.visible = false
+
+func light_text():
+	label.add_theme_color_override("font_color", Color("#ffffeb"))
+	
+func dark_text():
+	label.add_theme_color_override("font_color", Color("#272736"))
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
