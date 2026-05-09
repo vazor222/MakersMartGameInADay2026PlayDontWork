@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://be4fjlcel2hky"]
+[gd_scene load_steps=35 format=3 uid="uid://be4fjlcel2hky"]
 
 [ext_resource type="Texture2D" uid="uid://cvxrgsx74ctp0" path="res://assets/boss-Sheet.png" id="1_00k01"]
 [ext_resource type="Script" path="res://magicOffice.gd" id="1_aoxwu"]
@@ -20,6 +20,7 @@
 [ext_resource type="FontFile" uid="uid://bo5a45h3ba20e" path="res://assets/BoldPixels.ttf" id="11_ahjlb"]
 [ext_resource type="PackedScene" uid="uid://by44ikb2eqnlc" path="res://points_panel.tscn" id="11_o7cy3"]
 [ext_resource type="Texture2D" uid="uid://ct6atgdr7gca0" path="res://assets/Screenshot 2026-05-09 at 7.57.53 AM.png" id="15_m015p"]
+[ext_resource type="StyleBox" uid="uid://meii76h6uo48" path="res://replay_button_style.tres" id="20_1kkae"]
 
 [sub_resource type="Animation" id="Animation_1y2bg"]
 resource_name = "from_left_walk_long"
@@ -221,6 +222,13 @@ bg_color = Color(0.152941, 0.152941, 0.211765, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7odgd"]
 bg_color = Color(0.690196, 0.188235, 0.360784, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ro6kw"]
+bg_color = Color(0.301961, 0.65098, 1, 1)
+expand_margin_left = 32.0
+expand_margin_top = 8.0
+expand_margin_right = 32.0
+expand_margin_bottom = 8.0
 
 [node name="MagicOffice" type="Node2D" groups=["magic_office"]]
 script = ExtResource("1_aoxwu")
@@ -779,6 +787,36 @@ theme_override_font_sizes/font_size = 128
 text = "YOU'RE FIRED!!"
 horizontal_alignment = 1
 
+[node name="ColorRect" type="ColorRect" parent="LoseLabel"]
+show_behind_parent = true
+layout_mode = 0
+offset_left = -578.0
+offset_top = -815.0
+offset_right = 1422.0
+offset_bottom = 1185.0
+color = Color(0.376471, 0.376471, 0.439216, 0.682353)
+
+[node name="ReplayButton" type="Button" parent="LoseLabel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = 61.0
+offset_right = 150.0
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 0.921569, 1)
+theme_override_fonts/font = ExtResource("11_ahjlb")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = ExtResource("20_1kkae")
+theme_override_styles/hover = ExtResource("20_1kkae")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ro6kw")
+text = "Play Again"
+
 [node name="RivalTimerA" type="Timer" parent="."]
 unique_name_in_owner = true
 wait_time = 6.0
@@ -799,5 +837,6 @@ texture = ExtResource("15_m015p")
 [connection signal="screen_entered" from="Boss/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="Boss/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
 [connection signal="animation_finished" from="Boss/AnimationPlayer" to="Boss" method="_on_animation_player_animation_finished"]
+[connection signal="pressed" from="LoseLabel/ReplayButton" to="." method="_on_replay_button_pressed"]
 [connection signal="timeout" from="RivalTimerA" to="." method="_on_rival_timer_a_timeout"]
 [connection signal="timeout" from="RivalTimerB" to="." method="_on_rival_timer_b_timeout"]

@@ -33,8 +33,6 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_just_pressed("ui_accept"):
-		get_tree().reload_current_scene()
 	if game_over:
 		return
 	if boss_on_screen and playing_game:
@@ -145,4 +143,9 @@ func _on_rival_timer_b_timeout():
 	add_rival_score(rival_points_panel_b, 1)
 	rival_timer_b.wait_time = get_rival_wait_time(rival_times_b)
 	rival_timer_b.start()
+	pass # Replace with function body.
+
+
+func _on_replay_button_pressed():
+	get_tree().reload_current_scene()
 	pass # Replace with function body.
