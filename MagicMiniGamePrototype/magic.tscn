@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://be4fjlcel2hky"]
+[gd_scene load_steps=22 format=3 uid="uid://be4fjlcel2hky"]
 
 [ext_resource type="Texture2D" uid="uid://cvxrgsx74ctp0" path="res://assets/boss-Sheet.png" id="1_00k01"]
 [ext_resource type="Script" path="res://magicOffice.gd" id="1_aoxwu"]
@@ -12,6 +12,8 @@
 [ext_resource type="Texture2D" uid="uid://64k0vf3pcku3" path="res://assets/work-icon-Sheet.png" id="5_uxvt8"]
 [ext_resource type="Script" path="res://SheetAreaIcon.gd" id="7_sillh"]
 [ext_resource type="Texture2D" uid="uid://h0unjs3tpnps" path="res://assets/layout-template.png" id="8_s3f75"]
+[ext_resource type="FontFile" uid="uid://bo5a45h3ba20e" path="res://assets/BoldPixels.ttf" id="11_ahjlb"]
+[ext_resource type="PackedScene" uid="uid://by44ikb2eqnlc" path="res://points_panel.tscn" id="11_o7cy3"]
 
 [sub_resource type="Animation" id="Animation_kx2au"]
 resource_name = "walk"
@@ -51,8 +53,9 @@ _data = {
 size = Vector2(128, 128)
 
 [sub_resource type="LabelSettings" id="LabelSettings_hhxhj"]
+font = ExtResource("11_ahjlb")
 font_size = 64
-font_color = Color(0, 0, 0, 1)
+font_color = Color(0.152941, 0.152941, 0.211765, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nchso"]
 size = Vector2(200, 80)
@@ -194,6 +197,63 @@ index = 1
 position = Vector2(330, 170)
 index = 2
 
+[node name="Control" type="Control" parent="HatGame"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -576.0
+offset_top = -211.0
+offset_right = 576.0
+offset_bottom = 461.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="HatGame/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 22
+theme_override_constants/margin_top = 56
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HatGame/Control/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HatGame/Control/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="HatGame/Control/MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.152941, 0.152941, 0.211765, 1)
+theme_override_fonts/font = ExtResource("11_ahjlb")
+theme_override_font_sizes/font_size = 32
+text = "LEADER BOARD"
+
+[node name="PointsPanelsVBox" type="VBoxContainer" parent="HatGame/Control/MarginContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="PlayerPointsPanel" parent="HatGame/Control/MarginContainer/HBoxContainer/VBoxContainer/PointsPanelsVBox" instance=ExtResource("11_o7cy3")]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="RivalPointsPanelA" parent="HatGame/Control/MarginContainer/HBoxContainer/VBoxContainer/PointsPanelsVBox" instance=ExtResource("11_o7cy3")]
+unique_name_in_owner = true
+layout_mode = 2
+p_name = "Tom"
+start_score = 3
+
+[node name="RivalPointsPanelB" parent="HatGame/Control/MarginContainer/HBoxContainer/VBoxContainer/PointsPanelsVBox" instance=ExtResource("11_o7cy3")]
+unique_name_in_owner = true
+layout_mode = 2
+p_name = "Sam"
+start_score = 2
+
 [node name="StartButtonNode2D" type="Node2D" parent="HatGame"]
 position = Vector2(0, 400)
 
@@ -213,15 +273,6 @@ script = ExtResource("4_66l7m")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HatGame/StartButtonNode2D/Area2D"]
 shape = SubResource("RectangleShape2D_nchso")
-
-[node name="ScoreLabel" type="Label" parent="HatGame"]
-offset_left = 445.0
-offset_top = -128.0
-offset_right = 519.0
-offset_bottom = -40.0
-theme_override_font_sizes/font_size = 64
-text = "0"
-horizontal_alignment = 2
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(0.4, 0.4)
@@ -256,9 +307,20 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 16
-theme_override_font_sizes/font_size = 64
+theme_override_fonts/font = ExtResource("11_ahjlb")
+theme_override_font_sizes/font_size = 128
 text = "YOU'RE FIRED!!"
 horizontal_alignment = 1
 
+[node name="RivalTimerA" type="Timer" parent="."]
+wait_time = 6.0
+autostart = true
+
+[node name="RivalTimerB" type="Timer" parent="."]
+wait_time = 7.0
+autostart = true
+
 [connection signal="screen_entered" from="BossSprite/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_entered"]
 [connection signal="screen_exited" from="BossSprite/VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
+[connection signal="timeout" from="RivalTimerA" to="." method="_on_rival_timer_a_timeout"]
+[connection signal="timeout" from="RivalTimerB" to="." method="_on_rival_timer_b_timeout"]

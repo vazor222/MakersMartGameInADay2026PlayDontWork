@@ -2,18 +2,20 @@ extends Node2D
 @onready var game_window = $Node2D/GameWindow
 @onready var hat_game = $HatGame
 @onready var worksheet_window = $Node2D/WorksheetWindow
-@onready var score_label = $HatGame/ScoreLabel
 @onready var progress_bar = $ProgressBar
 @onready var lose_label = $LoseLabel
+@onready var player_points_panel = %PlayerPointsPanel
+@onready var rival_points_panel_a = %RivalPointsPanelA
+@onready var rival_points_panel_b = %RivalPointsPanelB
+@onready var points_panels_v_box = %PointsPanelsVBox
 
-
-var score = 0
 var suspicion = 0
 var boss_on_screen = false
 var playing_game = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	sort_scores()
 	pass # Replace with function body.
 
 
@@ -22,16 +24,9 @@ func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		get_tree().reload_current_scene()
 	if boss_on_screen and playing_game:
-		suspicion += delta * 30
+		add_suspicion(delta * 30)
 	else:
-		suspicion -= delta * 10
-	if suspicion < 0:
-		suspicion = 0
-	elif suspicion > 100:
-		suspicion = 100
-		print("you LOOSE")
-		lose_label.show()
-	progress_bar.value = suspicion
+		add_suspicion(-delta * 5)
 	pass
 
 func show_game():
@@ -48,10 +43,30 @@ func show_work():
 	game_window.hide()
 	hat_game.hide()
 
-func add_score(amount):
-	score += amount
-	score_label.text = str(score)
+func add_suspicion(amount):
+	suspicion += amount
+	if suspicion < 0:
+		suspicion = 0
+	elif suspicion > progress_bar.max_value:
+		suspicion = progress_bar.max_value
+		print("you LOOSE")
+		lose_label.show()
+	progress_bar.value = suspicion
 
+func add_score(amount):
+	player_points_panel.add_points(amount)
+	sort_scores()
+
+func add_rival_score(target, points):
+	target.add_points(points)
+	sort_scores()
+
+func sort_scores():
+	var panels = points_panels_v_box.get_children()
+	panels.sort_custom(func(a, b): return a.score > b.score)
+	for i in panels.size():
+		points_panels_v_box.move_child(panels[i], i)
+		panels[i].update_rank(i + 1)
 
 func _on_visible_on_screen_notifier_2d_screen_entered():
 	boss_on_screen = true
@@ -81,5 +96,16 @@ func clicked_hat_index(index):
 		add_score(1)
 	elif index == 2 && rightMoveCount == highestMoveCount:
 		add_score(1)
-	
 	pass
+
+
+func _on_rival_timer_a_timeout():
+	print('TIMEOUTA')
+	add_rival_score(rival_points_panel_a, 1)
+	pass # Replace with function body.
+
+
+func _on_rival_timer_b_timeout():
+	print('TIMEOUTB')
+	add_rival_score(rival_points_panel_b, 1)
+	pass # Replace with function body.
