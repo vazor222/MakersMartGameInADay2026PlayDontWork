@@ -4,6 +4,7 @@ extends Node2D
 @onready var worksheet_window = $Node2D/WorksheetWindow
 @onready var score_label = $HatGame/ScoreLabel
 @onready var progress_bar = $ProgressBar
+@onready var lose_label = $LoseLabel
 
 
 var score = 0
@@ -18,6 +19,8 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if Input.is_action_just_pressed("ui_accept"):
+		get_tree().reload_current_scene()
 	if boss_on_screen and playing_game:
 		suspicion += delta * 30
 	else:
@@ -27,6 +30,7 @@ func _process(delta):
 	elif suspicion > 100:
 		suspicion = 100
 		print("you LOOSE")
+		lose_label.show()
 	progress_bar.value = suspicion
 	pass
 
