@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://be4fjlcel2hky"]
+[gd_scene load_steps=36 format=3 uid="uid://be4fjlcel2hky"]
 
 [ext_resource type="Texture2D" uid="uid://cvxrgsx74ctp0" path="res://assets/boss-Sheet.png" id="1_00k01"]
 [ext_resource type="Script" path="res://magicOffice.gd" id="1_aoxwu"]
@@ -12,6 +12,7 @@
 [ext_resource type="Script" path="res://WorkIconArea.gd" id="5_pog4f"]
 [ext_resource type="Texture2D" uid="uid://64k0vf3pcku3" path="res://assets/work-icon-Sheet.png" id="5_uxvt8"]
 [ext_resource type="PackedScene" uid="uid://d1qd53bedf5od" path="res://cell_area_2d.tscn" id="6_bxpkj"]
+[ext_resource type="PackedScene" uid="uid://dtpondm6fgnp4" path="res://hide_window_area.tscn" id="6_iftwe"]
 [ext_resource type="Script" path="res://SheetAreaIcon.gd" id="7_sillh"]
 [ext_resource type="PackedScene" uid="uid://bpge72163q6or" path="res://clear_area_2d.tscn" id="8_gh7iu"]
 [ext_resource type="Texture2D" uid="uid://h0unjs3tpnps" path="res://assets/layout-template.png" id="8_s3f75"]
@@ -258,15 +259,24 @@ scale = Vector2(4, 4)
 texture = ExtResource("1_pmd75")
 
 [node name="GameWindow" type="Sprite2D" parent="Node2D"]
+unique_name_in_owner = true
 position = Vector2(0, 25)
 scale = Vector2(4, 4)
 texture = ExtResource("2_m2g4c")
+
+[node name="HideWindowArea" parent="Node2D/GameWindow" instance=ExtResource("6_iftwe")]
+position = Vector2(-112, -58)
+scale = Vector2(0.25, 0.25)
 
 [node name="WorksheetWindow" type="Sprite2D" parent="Node2D"]
 unique_name_in_owner = true
 position = Vector2(0, 25)
 scale = Vector2(4, 4)
 texture = ExtResource("3_4qwkx")
+
+[node name="HideWindowArea" parent="Node2D/WorksheetWindow" instance=ExtResource("6_iftwe")]
+position = Vector2(-112, -58)
+scale = Vector2(0.25, 0.25)
 
 [node name="CellArea2D" parent="Node2D/WorksheetWindow" instance=ExtResource("6_bxpkj")]
 position = Vector2(-96, -28)

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dtpondm6fgnp4"]
+
+[ext_resource type="Script" path="res://HideWindowArea.gd" id="1_d53yf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7i2bh"]
+size = Vector2(128, 48)
+
+[node name="HideWindowArea" type="Area2D"]
+position = Vector2(-448, -207)
+script = ExtResource("1_d53yf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_7i2bh")

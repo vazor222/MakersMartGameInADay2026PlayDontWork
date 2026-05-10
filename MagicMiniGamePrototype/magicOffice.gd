@@ -1,7 +1,7 @@
 extends Node2D
-@onready var game_window = $Node2D/GameWindow
+@onready var game_window = %GameWindow
 @onready var hat_game = $HatGame
-@onready var worksheet_window = $Node2D/WorksheetWindow
+@onready var worksheet_window = %WorksheetWindow
 @onready var progress_bar = $ProgressBar
 @onready var lose_label = $LoseLabel
 @onready var player_points_panel = %PlayerPointsPanel
@@ -14,7 +14,7 @@ extends Node2D
 
 var suspicion = 0
 var boss_on_screen = false
-var playing_game = true
+var is_working = false
 var game_over = false
 
 var rival_times_a = [5,6,7,8]
@@ -35,26 +35,34 @@ func _ready():
 func _process(delta):
 	if game_over:
 		return
-	if boss_on_screen and playing_game:
-		add_suspicion(delta * 30)
+	if boss_on_screen and !is_working:
+		if game_window.visible:
+			add_suspicion(delta * 30)
+		else:
+			add_suspicion(delta * 5)
 	else:
 		add_suspicion(-delta * 1)
 	pass
 
 func show_game():
-	playing_game = true
+	is_working = false
 	hat_game.show()
 	game_window.show()
-	
-	worksheet_window.hide()
+	hide_work()
 
 func show_work():
-	playing_game = false
+	is_working = true
 	worksheet_window.show()
-	
+	hide_game()
+
+func hide_game():
 	game_window.hide()
 	hat_game.hide()
 	get_tree().call_group('cell', 'deactivate')
+
+func hide_work():
+	is_working = false
+	worksheet_window.hide()
 
 func add_suspicion(amount):
 	if game_over:
